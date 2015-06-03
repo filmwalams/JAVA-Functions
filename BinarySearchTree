@@ -1,0 +1,214 @@
+
+// Binary Search Tree Template
+
+class BST {
+    
+    public Node root;
+    private int nodecount;
+    
+    class Node
+    {
+        private int data;
+        private Node left;
+        private Node right;
+        private Node parent;
+        //constructor
+        public Node(int a)
+        {
+            this.data=a;
+        }
+        public Node()
+        {
+            this.data=0;
+        }
+        
+        public Node getParent()
+        {
+            return this.parent;
+        }
+        public Node getLeft()
+        {
+            return this.left;
+        }
+        
+        
+        public Node getRight()
+        {
+            return this.right;
+        }
+        
+        public int data()
+        {
+            return this.data;
+        }
+        
+    }
+    
+    public BST()
+    {
+        root=null;
+        nodecount=0;
+    }
+    
+    public boolean IsEmpty()
+    {
+    return(nodecount==0);
+    }
+    
+    public int size()
+    {
+        return nodecount;
+    }
+    
+    public int getroot()
+    {
+        return root.data();
+    }
+    
+    public void insert(int a)
+    {
+        Node n=new Node(a);
+        insert(n);
+    }
+    public void insert(Node k)
+    {
+        if(root==null)
+        {
+            root=k;
+            nodecount++;
+        }
+        else
+        {   int kd=k.data();
+            Node parent,curr=root;
+            while(true)
+            {
+              parent=curr;
+              if(curr.data()>kd)
+              {
+                  //go left
+                  curr=curr.getLeft();
+                  if(curr==null)
+                  {   
+                      k.parent=parent;
+                      parent.left=k;
+                      nodecount++;
+                      return;
+                  }
+              }
+              else
+              {
+                  //right
+                  curr=curr.getRight();
+                  if(curr==null)
+                  {   
+                      k.parent=parent;
+                      parent.right=k;
+                      nodecount++;
+                      return;
+                  }
+              }
+              
+            }
+        }
+    }
+    
+    public int height(Node troot)
+      {
+      if (troot == null)
+        return 0;
+      else
+        return (1 + Math.max(height(troot.getLeft()), height(troot.getRight())));
+      }
+    
+    
+    public void preOrder(Node ATree)
+      {
+      if (ATree != null)
+        {
+        System.out.print(ATree.data()+" ");
+        preOrder(ATree.getLeft());
+        preOrder(ATree.getRight());
+        }
+      
+      }
+
+    public void inOrder(Node ATree)
+      {
+      if (ATree != null)
+        {
+        inOrder(ATree.getLeft());
+        System.out.print(ATree.data()+" ");
+        inOrder(ATree.getRight());
+        }
+      
+      }
+
+    public void postOrder(Node ATree)
+    {
+        if (ATree != null)
+        {
+        postOrder(ATree.getLeft());
+        postOrder(ATree.getRight());
+        System.out.print(ATree.data()+" ");
+        }
+      
+    }
+    
+    public Node Search(int a)
+    {
+        Node curr=root;
+        if(curr==null)return null;
+        while(true)
+        {   
+            if(curr==null)return null;
+            
+            if(curr.data<a)curr=curr.getRight();
+            else if(curr.data>a)curr=curr.getLeft();
+            else return curr;
+        }
+    }
+    
+    public void Delete(int a)
+    {
+        Node an=Search(a);
+        Delete(an);
+    }
+    public void Delete(Node an)
+    {
+        Node currp,currc;int pn;
+        if(an==null)return;
+        if(an.getLeft()==null && an.getRight()==null)
+        {
+            pn=an.getParent().data(); 
+            if(pn>an.data()){an.getParent().left=null;}
+            else { an.getParent().right=null;}
+        }
+        else if(an.getLeft()==null)
+        {
+            currp=an.getParent();
+            currc=an.getRight();
+            System.out.println(currp.data+" "+currc.data);
+            currp.right=currc;
+            currc.parent=currp;
+            an=null;
+        }
+        else if(an.getRight()==null)
+        {
+            currp=an.getParent();
+            currc=an.getLeft();
+            currp.left=currc;
+            currc.parent=currp;
+            an=null;
+        }
+        else 
+        {
+            currc=an.getRight();
+            while(currc.getLeft()!=null){currc=currc.getLeft();}
+            an.data=currc.data;
+            Delete(currc);
+            
+        }
+    }
+ 
+    
+}
