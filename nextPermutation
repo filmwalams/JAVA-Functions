@@ -1,0 +1,29 @@
+public static String nextPermutation(String s)
+{
+            int i, j;
+            int n=s.length();
+            char number[]=s.toCharArray();
+    
+            for (int i=n-1; i > 0; i--)
+                if (number[i]>number[i-1])
+                break;
+ 
+    
+            if (i==0)
+            {
+                System.err.println("This is last permutation.");
+                return "";
+            }
+ 
+            int x = number[i-1], smallest = i;
+            for (j = i+1; j < n; j++)
+                if (number[j] > x && number[j] < number[smallest])
+                    smallest = j;
+ 
+            char temp=number[smallest];
+            number[smallest]=number[i-1];
+            number[i-1]=temp;
+   
+            Arrays.sort(number,i,n);
+            return new String(number);
+}
