@@ -1,0 +1,40 @@
+public static int editDistance(String x,String y)
+        {
+            if(y.length() > x.length())            
+            {
+                String temp=x;
+                x=y;
+                y=temp;
+            }
+            int xlen=x.length();
+            int ylen=y.length();
+            int p[]=new int[ylen+1];
+            int d[]=new int[ylen+1];
+            int dtmp[]=new int[ylen+1];
+            for(int i=0; i<ylen; i++)
+                p[i]=i;
+            
+            Arrays.fill(d, Integer.MAX_VALUE);
+            Arrays.fill(dtmp, 0);           
+            for(int i=1; i<xlen+1; i++) 
+            {
+                char ch=x.charAt(i-1);
+                d[0]=i;         
+                for(int j=1; j<ylen+1; j++)
+                {
+                    if(ch==y.charAt(j-1))
+                        d[j]=p[j-1];
+                    else 
+                    {
+                        int dia=p[j-1]+1;      
+                        int left=d[j-1]+1;
+                        int top=p[j]+1;                                        
+                        d[j]=Math.min(dia, Math.min(left, top));
+                    }
+                }                
+                dtmp=p;
+                p=d;
+                d=dtmp;
+            }    
+            return p[ylen];
+        }
