@@ -1,0 +1,9 @@
+// This method converts time in seconds format into HH:MM:SS format.
+// Maximum acceptable value 86399 which implies 23:59:59
+// Minimum acceptable value 0
+
+public static String secondstotime(int time) 
+{
+        if(time<0 || time>86399) return "Invalid Input";
+        return String.format("%02d:%02d:%02d", time/3600, (time/60)%60, time%60);
+}
