@@ -1,0 +1,25 @@
+// Bitwise Operations 
+// Position is the 1 based index from Least significant bit Side.
+// For 0 based indexing replace (position-1) with position in checkbit,setbit & unsetbit functions
+public static int checkbit(int number,int position)
+{
+       return number & (1<<(position-1));
+}
+       
+public static int setbit(int number,int position)
+{
+       return (number | (1<<(position-1)));
+}
+       
+public static int unsetbit(int number,int position)
+{
+    return (number & ~(1<<(position-1)));
+}
+       
+public static int flipbit(int number,int position)
+{
+    if(checkbit(number,position)==0)
+	return setbit(number,position);
+    else 
+	return unsetbit(number,position);
+}
