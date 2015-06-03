@@ -1,3 +1,4 @@
+        // in Main method call init(System.in)
         // rb()-> readByte()
         // ni()-> nextInt()
         // nl()-> nextLong()
