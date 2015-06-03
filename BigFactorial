@@ -1,0 +1,10 @@
+// Factorial using BigInteger.
+// Slow(recursive) but easy to implement.
+public static BigInteger Factorial(int n)
+    {
+        if(n==0 || n==1)return BigInteger.ONE;
+        else
+        {
+            return Factorial(n-1).multiply(new BigInteger(String.valueOf(n)));
+        }
+    }
