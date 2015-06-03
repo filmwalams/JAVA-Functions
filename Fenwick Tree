@@ -1,0 +1,37 @@
+// Fenwick Tree Template
+public static long tree1[],tree2[];
+public static int N;
+public static void rangeupdate(int i,int j,long val)
+{
+        update(tree1,i,val);
+        update(tree1,j+1,-val);
+        update(tree2,i,val*(i-1));
+        update(tree2,j+1,-val*j);
+}
+        
+public static void update(long tree[],int idx,long val)
+{
+        while(idx<=N)
+        {
+                tree[idx]+=val;
+                idx+=(idx&-idx);
+        }
+}
+        
+public static long read(long tree[],int idx)
+{
+        long sum=0;
+        while(idx>0)
+        {
+                sum+=tree[idx];
+                idx-=(idx&-idx);
+        }
+        return sum;
+}
+        
+public static long sum(int i,int j)
+{
+        long ans=read(tree1,j)*j-read(tree1,i-1)*(i-1);
+        long ans2=read(tree2,i-1)-read(tree2,j);
+        return ans+ans2;
+}
