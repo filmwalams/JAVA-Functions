@@ -1,0 +1,23 @@
+
+// C(n,r) 
+public static long C(long n,long r) 
+{
+        long result = 1;
+        for (long i=1; i<=r; i++) 
+        {
+            result *= n-r+i;
+            result /= i;
+        }
+        return result;
+}
+
+// P(n,r)
+public static long P(int n,int r)
+{     
+        long val=1;
+        for(int i=n;i>n-r;i--)
+        {
+             val*=i;
+        }
+        return val;
+}
