@@ -2,7 +2,7 @@
 // prime = smallest prime divisible by i is stored in prime[i]
 // example totalfactors[100]=4 and prime[100]=2 
 // works for n=10^7 in 0.5seconds
-public static int totalFactor(int n)
+public static int totalFactor(int n)// find number of factors of n
 {
         int[] totalfactors=new int[n+1],prime=new int[n+1];
         for(int i=2;i<=n;i++)
@@ -19,7 +19,7 @@ public static int totalFactor(int n)
                 totalfactors[i]=totalfactors[i/prime[i]]+1;
                 
         }
-        return totalfactors;
+        return totalfactors[n];
 }       
 
 // store prime number upto n
