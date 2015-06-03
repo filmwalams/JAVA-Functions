@@ -1,0 +1,22 @@
+// Check if a String/Chararray is Palindrome or not
+public static boolean isPalindrome(String a)
+{
+        return isPalindrome(a.toCharArray(),a.length());
+}
+public static boolean isPalindrome(String a,int len)
+{
+        return isPalindrome(a.toCharArray(),len);
+}
+public static boolean isPalindrome(char a[],int len)
+{
+        if(len==1)return true;
+        if(len==0)return false;
+        if(len==2)return a[0]==a[1];
+        int i=0;
+        while(i<=len/2+1)
+        {
+            if(a[i]!=a[len-i-1])return false;
+            i++;
+        }
+        return true;
+}
