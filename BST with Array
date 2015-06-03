@@ -1,0 +1,50 @@
+//take bst array to be of Integer.MaxValue size 
+        public static void buildbst(int arr[],int i,int index)
+        {
+        if(bst[index]==0)
+        {
+            bst[index]=arr[i]; return;
+        }
+        if(bst[index]<arr[i])
+            buildbst(arr,i,index*2+1);
+        else 
+            buildbst(arr,i,index*2);
+        }
+        
+        public static int searchbst(int val,int index)
+        {   
+            if(bst[index]==val)
+                return index;
+            else if(bst[index]==0)
+                return 0;
+            else if(bst[index]<val)
+                return searchbst(val,index*2+1);
+            else 
+                return searchbst(val,index*2);
+        }
+        
+        public static void inorder(int index)
+        {
+            if(bst[index]==0)return;
+            inorder(index*2);
+            out.println(bst[index]);
+            inorder(index*2+1);
+        }
+        
+        public static void preorder(int index)
+        {
+            if(bst[index]==0)return;
+            out.println(bst[index]);
+            preorder(index*2);
+            preorder(index*2+1);
+        }
+        
+        public static void postorder(int index)
+        {
+            if(bst[index]==0)return;
+            postorder(index*2);
+            postorder(index*2+1);
+            out.println(bst[index]);
+        }
+       
+       
