@@ -1,0 +1,61 @@
+        // Union Find Disjoint Set with Query Compression Template by Mustafa
+        // connect in O(logN) time
+        // isConnected check in O(logN) time
+        
+        // in Main call init() after defining noOfElements
+        // then use connect and isConnected method as usual
+        
+        static class node
+        {
+                public int parent,rank;
+                public node(int p)
+                {
+                        parent=p;
+                        rank=0;
+                }
+    
+        }
+        public static node disjoint[];
+        static int noOfElements;
+        public static int sizes[];
+        public static void initUFDS()
+        {
+            disjoint=new node[noOfElements+1];
+            sizes=new int[noOfElements+1];
+            for(int i=0;i<=noOfElements;i++)disjoint[i]=new node(i);
+        }
+                
+        public static void setRank()
+        {
+            for(int i=1;i<=noOfElements;i++)
+            {
+                disjoint[i].rank=sizes[i]-1;
+            }
+        }
+        public static boolean isConnected(int a,int b)
+        {
+            
+           int parentA=find(a);
+           int parentB=find(b);
+           if(parentA==parentB)
+               return true;
+           else 
+               return false;
+        }
+        public static void connect(int a,int b)
+        {    
+           int aa=find(a);
+           int bb=find(b);
+           
+           if(aa==bb)return;
+           if(disjoint[aa].rank<disjoint[bb].rank){disjoint[aa].parent=bb; sizes[bb]+=sizes[aa];}
+           else if(disjoint[aa].rank>disjoint[bb].rank){disjoint[bb].parent=aa; sizes[aa]+=sizes[bb];}
+           else{ disjoint[bb].parent=aa; disjoint[aa].rank++; sizes[aa]+=sizes[bb];}
+           
+        }
+        
+        public static int find(int x)
+        {
+            if(disjoint[x].parent!=x)disjoint[x].parent=find(disjoint[x].parent);
+            return disjoint[x].parent;
+        }
