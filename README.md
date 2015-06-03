@@ -3,4 +3,4 @@ Java functions implementing Algorithms
 
 This is my first Repository on Github.
 
-I will keep on adding functions/methods written in JAVA for performing some useful algorithmic tasks.
+I have added some important functions implemented by me in JAVA and will keep on adding over time.
