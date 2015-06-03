@@ -1,0 +1,65 @@
+        public static void printGraph(int g[][],int len)
+        {
+            for(int i=0;i<len;i++)
+            {
+                for(int j=0;j<len;j++)
+                    System.out.print(g[i][j]+"              ");
+                System.out.println();
+            }
+        }
+        public static int getMinimumDistanceIndex(int dist[],boolean spt[])
+        {
+            int min=Integer.MAX_VALUE;
+            int min_index=-1;
+            for(int i=0;i<dist.length;i++)
+            {
+                if(dist[i]<=min && spt[i]==false)
+                {
+                    min=dist[i];
+                    min_index=i;
+                }
+            }
+
+            return min_index;
+        }
+
+        public static void dijkstra(int graph[][],int sourceindex)
+        {
+            int len=graph.length;
+            //if(sourceindex<0 || len<1)return;
+            int dist[]=new int[len];
+            boolean spt[]=new boolean[len];
+            //Initializing all vertices distances to INFINITY and isVisited to false
+            for(int i=0;i<len;i++)
+            {
+                dist[i]=Integer.MAX_VALUE;
+                spt[i]=false;
+            }
+            //Source is visited and distance is 0
+            
+            dist[sourceindex]=0;
+
+            for(int m=0;m<len-1;m++)
+            {
+                int u=getMinimumDistanceIndex(dist,spt);
+                spt[u]=true;
+
+                for(int v=0;v<len;v++)
+                { 
+                    if(spt[v]==false && graph[u][v]!=0 && dist[u] != Integer.MAX_VALUE && dist[u]+graph[u][v]<dist[v])
+                    {  
+                        dist[v] = dist[u] + graph[u][v];
+                    }
+                }
+
+            }
+            System.out.println(dist[len-1]);
+            printSolution(dist,len); 
+        }
+
+        public static void printSolution(int dist[], int n)
+        {
+        System.out.printf("Vertex   Distance from Source\n");
+        for (int i = 0; i < n; i++)
+            System.out.printf("%d \t\t %d\n", i, dist[i]);
+        }
