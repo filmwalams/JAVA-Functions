@@ -1,0 +1,104 @@
+//sqrt decomposition template in JAVA by Mustafa.
+// Use 0 based index on array and L,R query
+        public static int chunkSize=100;
+        public static int arr[],maxa[],mina[],suma[];
+        public static int n;// no of Elements in arr
+        public static void init()
+        {   
+            int cc=chunksCount(n);
+            maxa=new int[cc];
+            mina=new int[cc];
+            suma=new int[cc];
+            for(int i=0;i<n;i++)
+            {
+                int chunknum=i/chunkSize;
+                maxa[chunknum]=Math.max(arr[i],maxa[chunknum]);
+                mina[chunknum]=Math.min(arr[i],mina[chunknum]);
+                suma[chunknum]+=arr[i];
+            }
+            
+        }
+        
+        public static int rangeMaxQuery(int L,int R)
+        {
+            int leftChunk=L/chunkSize;
+            int rightChunk=L/chunkSize;
+            int ans=Integer.MIN_VALUE;
+            if(leftChunk==rightChunk)
+            {
+                for(int i=L;i<=R;i++)ans=Math.max(ans,arr[i]);
+            }
+            else
+            {
+                for(int i=L;i<=lastElement(leftChunk);i++)ans=Math.max(ans,arr[i]); 
+                for(int i=leftChunk+1;i<rightChunk;i++)ans=Math.max(ans,maxa[i]);
+                for(int i=firstElement(rightChunk);i<=R;i++)ans=Math.max(ans,arr[i]);
+                   
+            }
+            return ans;
+        }
+        
+        public static int rangeMinQuery(int L,int R)
+        {
+            int leftChunk=L/chunkSize;
+            int rightChunk=L/chunkSize;
+            int ans=Integer.MAX_VALUE;
+            if(leftChunk==rightChunk)
+            {
+                for(int i=L;i<=R;i++)ans=Math.min(ans,arr[i]);
+            }
+            else
+            {
+                for(int i=L;i<=lastElement(leftChunk);i++)ans=Math.min(ans,arr[i]); 
+                for(int i=leftChunk+1;i<rightChunk;i++)ans=Math.min(ans,maxa[i]);
+                for(int i=firstElement(rightChunk);i<=R;i++)ans=Math.min(ans,arr[i]);
+                   
+            }
+            return ans;
+        }
+        
+        public static int rangeSumQuery(int L,int R)
+        {
+            int leftChunk=L/chunkSize;
+            int rightChunk=L/chunkSize;
+            int ans=0;
+            if(leftChunk==rightChunk)
+            {
+                for(int i=L;i<=R;i++)ans+=arr[i];
+                out.println("d");
+            }
+            else
+            {
+                for(int i=L;i<=lastElement(leftChunk);i++)ans+=arr[i]; 
+                for(int i=leftChunk+1;i<rightChunk;i++)ans+=maxa[i];
+                for(int i=firstElement(rightChunk);i<=R;i++)ans+=arr[i];
+                   
+            }
+            return ans;
+        }
+        
+        public static int chunkNumber(int pos)
+        {
+            return (pos/chunkSize);
+        }
+        
+        public static int firstElement(int chunknum)
+        {
+            return (chunknum)*chunkSize;
+        }
+        
+        public static int lastElement(int chunknum)
+        {
+            return ((chunknum+1)*chunkSize)-1;
+        }
+        
+        public static boolean isEnd(int pos)
+        {
+            return (pos%chunkSize==0);
+        }
+        
+        public static int chunksCount(int elementcount)
+        {
+            return (elementcount/chunkSize)+1;
+        }
+       
