@@ -1,0 +1,15 @@
+public static long maximumBitCountNumber(long l,long r)
+       {
+            long res=l;
+            for(int i=0;i<64;i++) 
+            {
+                if((res&(1L<<i))>0)continue;
+                long tmp=res+(1L<<i);
+                if(tmp<=r) 
+                {
+                    res=tmp;
+                }
+                else break;
+            }
+            return res;
+        }
