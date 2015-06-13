@@ -1,0 +1,27 @@
+        public static int ans;
+        public static int visited[];
+        // 1 based indexing.
+        public static int treeDiameter(ArrayList<ArrayList<Integer>> tree)
+        {
+        return diameter(tree,1);
+        }
+        public static int diameter(ArrayList<ArrayList<Integer>> tree,int root)
+        {
+            int temp,first=-1,second=-1;
+            visited[root]=1;
+            for(int i=0;i<tree.get(root).size();i++)
+            {
+                if(visited[tree.get(root).get(i)]==0)
+                {
+                    temp=diameter(tree,tree.get(root).get(i));
+                    if(temp>=first)
+                    {
+                        second=first;
+                        first=temp;
+                    }
+                    else if(temp>second)second=temp;
+                }
+            }
+            ans=Math.max(ans,first+second+2);
+            return first+1;
+        }
