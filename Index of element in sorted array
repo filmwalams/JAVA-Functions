@@ -1,0 +1,45 @@
+        // Find index of element in sorted array
+        
+        // considering all elements distinct, all ranks distinct.
+        public static int[] rankbyvaluewithouttie(int arr[][],int n)
+        {
+            int ans[]=new int[n];
+            Arrays.sort(arr,new Comparator<int[]>(){
+                
+                public int compare(int a[],int b[])
+                {
+                    return Integer.compare(a[0],b[0]);
+                }
+            });
+            for(int i=0;i<n;i++)
+            {
+                ans[arr[i][1]]=i;
+            }
+            return ans;
+        }
+        
+        // ties gets same rank.
+        public static int[] rankbyvaluewithtie(int arr[][],int n)
+        {
+            int ans[]=new int[n];
+            HashMap<Integer,Integer> rankmap=new HashMap<Integer,Integer>();
+            
+            Arrays.sort(arr,new Comparator<int[]>(){
+                
+                public int compare(int a[],int b[])
+                {
+                    return Integer.compare(a[0],b[0]);
+                }
+            });
+            for(int i=0;i<n;i++)
+            {
+                if(!rankmap.containsKey(arr[i][0]))
+                {
+                    ans[arr[i][1]]=i;
+                    rankmap.put(arr[i][0],i);
+                }
+                else 
+                    ans[arr[i][1]]=rankmap.get(arr[i][0]);
+            }
+            return ans;
+        }
