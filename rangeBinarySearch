@@ -1,0 +1,49 @@
+public ArrayList<Integer> rangeBinarySearch(final List<Integer> a, int b) {
+	    int left,right;
+	    
+	    // left index
+	    int high=a.size()-1;
+	    int low=0;
+	    int mid=0;
+	    while(low<high){
+	        mid=(high+low)/2;
+	        
+	        if(high==low+1){
+	            if(a.get(low)==b)mid=low;
+	            else mid=high;
+	            break;
+	        }
+	        if(a.get(mid)>b)high=mid-1;
+	        else if(a.get(mid)<b)low=mid+1;
+	        else high=mid;
+	        
+	        
+	    }
+	    if(high==low)mid=low;
+	    if(a.get(mid)!=b)left=-1;
+	    else left=mid;
+	    
+	    // right index
+	    high=a.size()-1;
+	    low=0;
+	    while(low<high){
+	        mid=(high+low)/2;
+	        if(high==low+1){
+	            if(a.get(high)==b)mid=high;
+	            else mid=low;
+	            break;
+	        }
+	        if(a.get(mid)>b)high=mid-1;
+	        else if(a.get(mid)<b)low=mid+1;
+	        else low=mid;
+	    }
+	    if(high==low)mid=low;
+	    if(a.get(mid)!=b)right=-1;
+	    else 
+	    right=mid;
+	    
+	    ArrayList<Integer> ab=new ArrayList<Integer>();
+	    ab.add(left);
+	    ab.add(right);
+	    return ab;
+	}
