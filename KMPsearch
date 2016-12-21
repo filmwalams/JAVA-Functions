@@ -1,0 +1,47 @@
+public int KMPsearch(String text,String patternstr){
+    				//String text = "abcabxabcabcabyabcabhabxabcabyaby";
+    				//String patternstr = "abcaby";
+    				char pattern[] = patternstr.toCharArray();
+    				int len = pattern.length;
+    				int n = text.length();
+    				int ans = 0;
+    				int pat[]=new int[len];
+    				int i=1,j=0;
+    				while(i < len){
+							if(pattern[i] == pattern[j]){
+								pat[i] = j + 1;
+								i++;
+								j++;
+							}
+							else if(j > 0){
+								j = pat[j-1];
+							}
+							else{
+								pat[i] = 0;
+								i++;
+							}
+					} 
+					// KMP patternarray
+					//out.println(Arrays.toString(pat));
+					
+					int patid=0,textid=0;
+					while(textid < n){
+						if(pattern[patid] == text.charAt(textid)){
+							patid++;
+							textid++;
+							if(patid == len){
+								out.println("Match found at"+(textid-len));
+								ans++;
+								patid = 0;
+							}
+						}
+						else if(patid > 0){
+							patid = pat[patid - 1];
+						}
+						else{
+							patid = 0;
+							textid++;
+						}
+					}
+					return ans;
+}
