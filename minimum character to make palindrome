@@ -1,0 +1,27 @@
+	public static void mincharpalindrome(String str,int len){
+		char[] s = str.toCharArray();
+		int ispalin[][] = new int[len][len];
+		int startidx= -1,endidx = -1,ans = -1;
+		for(int i = 0; i < len ; i++){
+			for(int j = 0; i+j < len ; j++){
+				if(i == 0){
+					continue;
+				}
+				else if(i == 1){
+					if(s[j] == s[i+j])
+						ispalin[j][i+j] = 0;
+					else 
+						ispalin[j][i+j] = 1;
+				}
+				else{
+					if(s[j] == s[i+j])
+						ispalin[j][i+j] = ispalin[j+1][i+j-1];
+					else
+						ispalin[j][i+j] = Math.min(ispalin[j+1][i+j],ispalin[j][i+j-1]) + 1;
+				}
+
+
+			}
+		}
+		System.out.println(ispalin[0][len-1]);
+	}
